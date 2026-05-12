@@ -1,0 +1,80 @@
+<div class="page">
+  <div class="left-panel">
+
+    <!-- Arka plan ışıma -->
+    <div class="bg-halo"></div>
+
+    <!-- Köşe çerçeveleri -->
+    <span class="corner tl"></span>
+    <span class="corner tr"></span>
+    <span class="corner bl"></span>
+    <span class="corner br"></span>
+
+    <div class="pharmacy-sign">
+
+      <!-- Haç logosu -->
+      <div class="cross-wrap">
+        <div class="cross-halo"></div>
+        <svg viewBox="-10 -10 260 260" class="cross-svg" aria-hidden="true">
+          <path class="cross-bg"
+            d="M80,0 H160 V80 H240 V160 H160 V240 H80 V160 H0 V80 H80 Z"/>
+          <path class="cross-leds"
+            d="M80,0 H160 V80 H240 V160 H160 V240 H80 V160 H0 V80 H80 Z"/>
+        </svg>
+      </div>
+
+      <!-- Ayırıcı çizgi -->
+      <div class="divider">
+        <span class="d-line"></span>
+        <span class="d-dot"></span>
+        <span class="d-line"></span>
+      </div>
+
+      <!-- Alt yazı -->
+      <p class="sign-label">NÖBETÇİ ECZANELER</p>
+
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div class="form-card">
+      <h2 class="form-title">Nöbetçi Eczane Bul</h2>
+      <p class="form-subtitle">İl ve ilçe seçerek nöbetçi eczane bilgilerini e-posta adresinize gönderin.</p>
+
+      <div class="form-group">
+        <label class="form-label">İl</label>
+        <select [(ngModel)]="selectedIl" (ngModelChange)="onIlChange()" class="select-field">
+          <option value="" disabled selected>Şehir seçiniz</option>
+          <option *ngFor="let city of cities" [value]="city.il">{{ city.il }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">İlçe</label>
+        <select [(ngModel)]="selectedIlce" class="select-field" [disabled]="!selectedIl">
+          <option value="" disabled selected>{{ selectedIl ? 'İlçe seçiniz' : 'Önce il seçiniz' }}</option>
+          <option *ngFor="let ilce of ilceler" [value]="ilce">{{ ilce }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">E-posta Adresi</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          placeholder="ornek@mail.com"
+          class="input-field"
+        />
+      </div>
+
+      <button (click)="submit()" class="submit-btn" [disabled]="loading">
+        <span *ngIf="!loading">Gönder</span>
+        <span *ngIf="loading" class="loading-dots">Gönderiliyor<span>.</span><span>.</span><span>.</span></span>
+      </button>
+
+      <div *ngIf="message" class="message-box" [ngClass]="messageType">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+</div>
